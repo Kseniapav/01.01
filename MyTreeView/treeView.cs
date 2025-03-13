@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyLib.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,16 +14,30 @@ namespace MyTreeView
     public partial class treeView : Form
     {
         private List<RestoransNoteModel> treeData_ = new List<RestoransNoteModel>();
+        private Dictionary<string, Dishes> dishesInfo = new Dictionary<string, Dishes>();
+
 
         public treeView()
         {
             InitializeComponent();
             LoadTreeView();
+            InitializeDishesInfo();
 
             // Подписываемся на событие DoubleClick
             MyTreeView.DoubleClick += MyTreeView_DoubleClick;
 
             
+        }
+        private void InitializeDishesInfo()
+        {
+            // Добавляем информацию о блюдах в коллекцию
+            dishesInfo.Add("Грибной крем-суп", new Dishes("Грибной крем-суп", "300 руб.", "Грибной крем-суп", "шампиньоны\nсливки\nлук\nспеции", "300 г"));
+            dishesInfo.Add("Куринный", new Dishes("Куринный суп", "250 руб.", "Куринный суп", "курица\nкартофель\nморковь\nлук\nзелень", "350 г"));
+            dishesInfo.Add("Цезарь", new Dishes("Цезарь", "350 руб.", "Цезарь", "курица\nлистья салата\nсухарики\nсоус Цезарь", "250 г"));
+            dishesInfo.Add("Оливье", new Dishes("Оливье", "200 руб.", "Оливье", "колбаса\nкартофель\nморковь\nогурцы\nмайонез", "300 г"));
+            dishesInfo.Add("Греческий", new Dishes("Греческий салат", "400 руб.", "Греческий салат", "помидоры\nогурцы\nперец\nоливки\nсыр фета", "400 г"));
+            dishesInfo.Add("Красное вино", new Dishes("Вино", "500 руб.", "Выдержанное красное вино", "Красное вино", "150 мл"));
+            dishesInfo.Add("Коньяк", new Dishes("Коньяк", "700 руб.", "Коньяк", "Выдержанный коньяк", "50 мл"));
         }
 
         private void LoadTreeView()
@@ -41,7 +56,7 @@ namespace MyTreeView
 
             var drinks = positions.AddChildNode("Напитки");
             var alko = drinks.AddChildNode("Алкогольные напитки");
-            alko.AddChildNode("Вино");
+            alko.AddChildNode("Красное вино");
             alko.AddChildNode("Коньяк");
 
             treeData_.Add(new RestoransNoteModel("Ресторан DeepHouse"));
@@ -70,34 +85,29 @@ namespace MyTreeView
 
             if (selectedNode != null)
             {
+                // Получаем название блюда
                 string dishName = selectedNode.Text;
-                var dishInfo = GetDishInfo(dishName);
 
-                // Добавляем информацию о блюде в таблицу
-                dataGridViewDishInfo.Rows.Add(dishInfo.DishName, dishInfo.Price, dishInfo.Description, dishInfo.Ingredients, dishInfo.PortionWeight);
-            }
-        }
+                // Проверяем, есть ли информация о блюде в коллекции
+                if (dishesInfo.ContainsKey(dishName))
+                {
+                    // Получаем информацию о блюде
+                    Dishes dishInfo = dishesInfo[dishName];
 
-        private (string DishName, string Price, string Description, string Ingredients, string PortionWeight) GetDishInfo(string dishName)
-        {
-            switch (dishName)
-            {
-                case "Грибной крем-суп":
-                    return ("Грибной крем-суп", "300 руб.", "Грибной крем-суп", "шампиньоны, сливки, лук, специи", "300 г");
-                case "Куринный":
-                    return ("Куринный суп", "250 руб.", "Куринный суп", "курица, картофель, морковь, лук, зелень", "350 г");
-                case "Цезарь":
-                    return ("Цезарь", "350 руб.", "Цезарь", "курица, листья салата, сухарики, соус Цезарь", "250 г");
-                case "Оливье":
-                    return ("Оливье", "200 руб.", "Оливье", "колбаса, картофель, морковь, огурцы, майонез", "300 г");
-                case "Греческий":
-                    return ("Греческий салат", "400 руб.", "Греческий салат", "помидоры, огурцы, перец, оливки, сыр фета", "400 г");
-                case "Вино":
-                    return ("Вино", "500 руб.", "Вино", "Красное или белое вино", "150 мл");
-                case "Коньяк":
-                    return ("Коньяк", "700 руб.", "Коньяк", "Выдержанный коньяк", "50 мл");
-                default:
-                    return ("Информация о блюде отсутствует", "", "", "", "");
+                    // Добавляем информацию о блюде в таблицу
+                    dataGridViewDishInfo.Rows.Add(
+                        dishInfo.DishName,
+                        dishInfo.Price,
+                        dishInfo.Description,
+                        dishInfo.Ingredients,
+                        dishInfo.PortionWeight
+                    );
+                }
+                else
+                {
+                    // Если информация о блюде отсутствует
+                    dataGridViewDishInfo.Rows.Add(dishName, "-", "Информация о блюде отсутствует", "-", "-");
+                }
             }
         }
 
@@ -112,6 +122,11 @@ namespace MyTreeView
         }
 
         private void dataGridViewDishInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
