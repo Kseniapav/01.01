@@ -21,6 +21,8 @@ namespace MyTreeView
 
             // Подписываемся на событие DoubleClick
             MyTreeView.DoubleClick += MyTreeView_DoubleClick;
+
+            
         }
 
         private void LoadTreeView()
@@ -69,31 +71,33 @@ namespace MyTreeView
             if (selectedNode != null)
             {
                 string dishName = selectedNode.Text;
-                string dishInfo = GetDishInfo(dishName);
-                richTextBoxDishInfo.Text = dishInfo;
+                var dishInfo = GetDishInfo(dishName);
+
+                // Добавляем информацию о блюде в таблицу
+                dataGridViewDishInfo.Rows.Add(dishInfo.DishName, dishInfo.Price, dishInfo.Description, dishInfo.Ingredients, dishInfo.PortionWeight);
             }
         }
 
-        private string GetDishInfo(string dishName)
+        private (string DishName, string Price, string Description, string Ingredients, string PortionWeight) GetDishInfo(string dishName)
         {
             switch (dishName)
             {
                 case "Грибной крем-суп":
-                    return "Грибной крем-суп\nЦена: 300 руб.\nСостав: шампиньоны, сливки, лук, специи.";
+                    return ("Грибной крем-суп", "300 руб.", "Грибной крем-суп", "шампиньоны, сливки, лук, специи", "300 г");
                 case "Куринный":
-                    return "Куринный суп\nЦена: 250 руб.\nСостав: курица, картофель, морковь, лук, зелень.";
+                    return ("Куринный суп", "250 руб.", "Куринный суп", "курица, картофель, морковь, лук, зелень", "350 г");
                 case "Цезарь":
-                    return "Цезарь\nЦена: 350 руб.\nСостав: курица, листья салата, сухарики, соус Цезарь.";
+                    return ("Цезарь", "350 руб.", "Цезарь", "курица, листья салата, сухарики, соус Цезарь", "250 г");
                 case "Оливье":
-                    return "Оливье\nЦена: 200 руб.\nСостав: колбаса, картофель, морковь, огурцы, майонез.";
+                    return ("Оливье", "200 руб.", "Оливье", "колбаса, картофель, морковь, огурцы, майонез", "300 г");
                 case "Греческий":
-                    return "Греческий салат\nЦена: 400 руб.\nСостав: помидоры, огурцы, перец, оливки, сыр фета.";
+                    return ("Греческий салат", "400 руб.", "Греческий салат", "помидоры, огурцы, перец, оливки, сыр фета", "400 г");
                 case "Вино":
-                    return "Вино\nЦена: 500 руб.\nКрасное или белое вино, отличный выбор к мясным блюдам.";
+                    return ("Вино", "500 руб.", "Вино", "Красное или белое вино", "150 мл");
                 case "Коньяк":
-                    return "Коньяк\nЦена: 700 руб.\nВыдержанный коньяк, идеальный напиток для завершения трапезы.";
+                    return ("Коньяк", "700 руб.", "Коньяк", "Выдержанный коньяк", "50 мл");
                 default:
-                    return "Информация о блюде отсутствует.";
+                    return ("Информация о блюде отсутствует", "", "", "", "");
             }
         }
 
@@ -103,6 +107,11 @@ namespace MyTreeView
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewDishInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
