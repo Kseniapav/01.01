@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLib", "MyLib\MyLib.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_user", "DB_user\DB_user.csproj", "{D323FFD9-F451-466E-81E4-305EB8E000AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Functions.csproj", "{C7869C8F-340E-4451-BFF9-6373C57E13DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DishCard", "DishCard\DishCard.csproj", "{16535AB5-7781-4F53-B678-3D4FA173306B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{D323FFD9-F451-466E-81E4-305EB8E000AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D323FFD9-F451-466E-81E4-305EB8E000AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D323FFD9-F451-466E-81E4-305EB8E000AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7869C8F-340E-4451-BFF9-6373C57E13DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7869C8F-340E-4451-BFF9-6373C57E13DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7869C8F-340E-4451-BFF9-6373C57E13DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7869C8F-340E-4451-BFF9-6373C57E13DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16535AB5-7781-4F53-B678-3D4FA173306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16535AB5-7781-4F53-B678-3D4FA173306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16535AB5-7781-4F53-B678-3D4FA173306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16535AB5-7781-4F53-B678-3D4FA173306B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
